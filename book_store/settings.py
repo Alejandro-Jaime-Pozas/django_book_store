@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'book_outlet',
+    'book_outlet', # added manually
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
