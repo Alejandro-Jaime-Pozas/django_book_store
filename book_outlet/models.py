@@ -6,12 +6,19 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+class Author(models.Model):
+    first_name = models.CharField(max_length=100)
+    last_name = models.CharField(max_length=100)
+
+
 # django.db.models.Model contains all the sql needed to create models
 class Book(models.Model):
     # django auto-creates the primary ID
     title = models.CharField(max_length=50)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)]) # to only allow certain values
-    author = models.CharField(max_length=100, null=True)
+    # old way of just adding author as string vs object
+    # author = models.CharField(max_length=100, null=True)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE) # foerign key
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", blank=True, null=False, db_index=True) # create slug format like lord-of-the-rings; can improve field searches by setting index to True (db_index=True); editable=False does not allow admin user to edit this field
 
