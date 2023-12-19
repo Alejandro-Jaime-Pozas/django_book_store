@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book
+from .models import Book, Author
 
 # Register your models here.
 
@@ -13,3 +13,4 @@ class BookAdmin(admin.ModelAdmin):
     list_display = ('title', 'author', ) # allows for columns when displaying objects
 
 admin.site.register(Book, BookAdmin) # this tells Django to ADD this model to the admin site, and that BookAdmin class is linked to the Book class
+admin.site.register(Author)
