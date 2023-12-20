@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book, Author
+from .models import Book, Author, Address, Country
 
 # Register your models here.
 
@@ -14,3 +14,5 @@ class BookAdmin(admin.ModelAdmin):
 
 admin.site.register(Book, BookAdmin) # this tells Django to ADD this model to the admin site, and that BookAdmin class is linked to the Book class
 admin.site.register(Author)
+admin.site.register(Address)
+admin.site.register(Country)

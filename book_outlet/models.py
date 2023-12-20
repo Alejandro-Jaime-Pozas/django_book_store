@@ -5,6 +5,11 @@ from django.utils.text import slugify
 
 # Create your models here.
 
+class Country(models.Model):
+    name = models.CharField(max_length=50)
+    code = models.CharField(max_length=2)
+
+
 class Address(models.Model):
     street = models.CharField(max_length=80)
     postal_code = models.CharField(max_length=5)
@@ -12,6 +17,10 @@ class Address(models.Model):
 
     def __str__(self) -> str:
         return f"{self.street}, {self.city}, {self.postal_code}"
+    
+    # add a nested Meta class to access certain django Meta fields
+    class Meta:
+        verbose_name_plural = "Addresses" # this changes the plural output on admin site from 'Addresss' to 'Addresses'
 
 
 class Author(models.Model):
@@ -31,11 +40,12 @@ class Book(models.Model):
     # django auto-creates the primary ID
     title = models.CharField(max_length=50)
     rating = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(5)]) # to only allow certain values
-    # old way of just adding author as string vs object
+    # # old way of just adding author as string vs object
     # author = models.CharField(max_length=100, null=True)
     author = models.ForeignKey(Author, on_delete=models.CASCADE, null=True, related_name='books') # foerign key
     is_bestselling = models.BooleanField(default=False)
     slug = models.SlugField(default="", blank=True, null=False, db_index=True) # create slug format like lord-of-the-rings; can improve field searches by setting index to True (db_index=True); editable=False does not allow admin user to edit this field
+    published_countries = models.ManyToManyField(Country, related_name='books') # can't add on_delete field for many to many relations, since would delete all connections bw them
 
     # allows to get a url that represents each instance of this Book model
     def get_absolute_url(self):
