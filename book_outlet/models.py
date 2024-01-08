@@ -13,7 +13,7 @@ class Country(models.Model):
         return f"{self.name}"
 
     class Meta:
-        verbose_name_plural = "Countries"
+        verbose_name_plural = "Countries" # this to change how it appears in admin site
 
 
 class Address(models.Model):
